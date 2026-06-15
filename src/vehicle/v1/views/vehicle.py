@@ -1,5 +1,6 @@
 from rest_framework import mixins
 from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
 
 from vehicle.models import Vehicle
 from vehicle.v1.serializers.vehicle import VehicleSerializer
@@ -10,6 +11,7 @@ class VehicleList(
 ):
     queryset = Vehicle.objects.all()
     serializer_class = VehicleSerializer
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
@@ -26,6 +28,7 @@ class VehicleDetail(
 ):
     queryset = Vehicle.objects.all()
     serializer_class = VehicleSerializer
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
