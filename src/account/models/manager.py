@@ -6,8 +6,12 @@ class Manager(User):
     enterprise = models.ForeignKey(
         to=Enterprise,
         related_name="managers",
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        null=True,
     )
+
+    objects = User.objects
+
     class Meta:
         db_table = "managers"
         verbose_name = "manager"
