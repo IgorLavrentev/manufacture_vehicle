@@ -3,14 +3,13 @@ from django.db import models
 from vehicle.models import Enterprise
 
 class Manager(User):
-    enterprise = models.ForeignKey(
+    enterprises = models.ManyToManyField(
         to=Enterprise,
         related_name="managers",
-        on_delete=models.CASCADE,
-        null=True,
     )
 
     objects = User.objects
+
 
     class Meta:
         db_table = "managers"
