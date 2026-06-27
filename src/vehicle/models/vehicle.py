@@ -7,7 +7,7 @@ class Vehicle(models.Model):
     year = models.IntegerField()  # Год выпуска
     mileage = models.IntegerField()  # пробег
 
-    enterprise = models.ForeignKey(to='Enterprise', related_name='vehicle', on_delete=models.CASCADE, null=True)
+    enterprise = models.ForeignKey(to='Enterprise', related_name='vehicle', on_delete=models.PROTECT, null=True)
 
     def __str__(self):
         return self.name

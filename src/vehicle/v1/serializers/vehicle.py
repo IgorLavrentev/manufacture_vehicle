@@ -7,7 +7,7 @@ class VehicleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Vehicle
-        fields = ['name', 'cost', 'year',"mileage"]
+        fields = ['name', 'cost', 'year',"mileage",'enterprise']
 
         # extra_kwqrgs = {
         #     "enterprise": {

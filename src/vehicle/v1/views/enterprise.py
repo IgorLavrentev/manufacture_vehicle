@@ -2,6 +2,12 @@ from rest_framework import mixins
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
+
+from django.db.models import ProtectedError
+from rest_framework.response import Response
+from rest_framework import status
+
+
 from vehicle.models import Enterprise
 from vehicle.v1.serializers.enterprise import EnterpriseSerializer
 from rest_framework.exceptions import APIException
@@ -53,4 +59,10 @@ class EnterpriseDetail(
         return self.update(request, *args, **kwargs)
 
     def delete(self, request, *args, **kwargs):
-        return self.destroy(request, *args, **kwargs)
+        try:
+            return self.destroy(request, *args, **kwargs)
+        except ProtectedError:
+            return Response(
+                {"detail": "Нельзя удалить предприятие, так как к нему привязаны автомобили."},
+                status=status.HTTP_409_CONFLICT,
+            )
